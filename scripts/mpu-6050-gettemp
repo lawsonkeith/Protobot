@@ -1,0 +1,4 @@
+#! /bin/sh
+
+TEMP=`./mpu-6050-getword 41`
+echo "ibase=16; scale=3; ((-((FFFF-$TEMP)+1))/154)+24.87" | bc

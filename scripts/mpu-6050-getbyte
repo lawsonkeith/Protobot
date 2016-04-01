@@ -1,0 +1,4 @@
+#! /bin/sh
+
+ADDR=$1
+i2cget -y 1 0x68 0x$ADDR | sed -e 's/^0x//g' | tr a-z A-Z

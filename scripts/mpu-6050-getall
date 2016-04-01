@@ -1,0 +1,10 @@
+#! /bin/sh
+
+echo Accelerometer:
+./mpu-6050-getaccel
+echo
+echo Gyroscope:
+./mpu-6050-getgyro
+echo
+echo Temperature:
+./mpu-6050-gettemp

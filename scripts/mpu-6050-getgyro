@@ -1,0 +1,5 @@
+#! /bin/sh
+
+echo X: `./mpu-6050-getword 43`
+echo Y: `./mpu-6050-getword 45`
+echo Z: `./mpu-6050-getword 47`
