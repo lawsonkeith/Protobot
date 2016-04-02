@@ -33,10 +33,12 @@ NOTE - all IP addressese are for ref only.
 * 192.168.1.6 - my PI
 
 ##Usage
-Acquire the windows XBOX wireless driver and install the drivers.  There's a tutorial here http://www.s-config.com/archived-xbox-360-receiver-install-for-win-xp-and-win-7/ if you buy a cheap Chinese copy and can't get it working.
-The LED on the controller will indicate when it's paired.
-
-Run the program inside a linux VM, get the controller running in windows then capture it in VMWAREs device capture menu.  The LED ont he controller should stay the same indicating it's working.
+1. Start Xbox controller, check it works in windows
+2. Start linux VM, capture Xbox controller
+3. Check your linux IP address via router & ifconfig
+4. Turn on car, locate it's IP address on router
+5. Run client script specifying PI's IP address
+6. Drive around...
 
 Install the client code on the laptop then the server code on the raspberry pi.  The Pi needs the Monitor code installing on it too.
 
