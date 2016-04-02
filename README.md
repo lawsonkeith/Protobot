@@ -1,25 +1,32 @@
 ## Teleop2
-Improved RC car teleop system with haptic feedback using C on a raspberry Pi.
-
-http://zacharybears.com/low-latency-raspberry-pi-video-streaming/
+Improved RC car teleop system with haptic feedback using C on a raspberry Pi.  The main improvement is the use of an HD camera rather than the XBOX USB camera which couldn't go past really low res.
+This now uses gstreamer rather than mjpeg-streamer to achieve this.
 
 There are 4 software modules:
 
 1. **teleop_client**		- Laptop
-2. Web browser client		- Laptop 
+2. gstreamer video client	- Laptop 
 3. **teleop_server**		- Pi
-4. Motion webcam server		- Pi
+4. gstreamer video server	- Pi
  
-There are 6 hardware modules:
+There are 8 hardware modules:
 
 1. XBOX 360 gamepad		- Laptop	
 2. Wireless xbox receiver	- Laptop
+
 3. MPU6050 IMU			- Pi
 4. Wifi dongle 1000mw		- Pi	
 5. DCDC Converter		- Pi
 6. Pi Camera			- Pi
+7. Pi V1 Model B		- Pi
+8. Pi servo interface harness	- Pi
 
 Functionally there is a remote RC car and a laptop operator control unit (Laptop).
+
+NOTE - all IP addressese are for ref only.
+192.168.1.1 - my router
+192.168.1.2 - my laptop linux VM
+192.168.1.6 - my PI
 
 ##usage
 Acquire the windows XBOX wireless driver and install the drivers.  There's a tutorial here http://www.s-config.com/archived-xbox-360-receiver-install-for-win-xp-and-win-7/ if you buy a cheap Chinese copy and can't get it working.
@@ -48,26 +55,44 @@ This has been tested on Xubuntu 15.  Use the following commands to look for or t
 4. ls /dev/input
  
 
-##Installing Motion on the Pi
+##Installing Gstreamer on the Pi
 Install motion on the pi as follows:
 
-1. Look at http://www.instructables.com/id/Raspberry-Pi-remote-webcam/
-2. sudo apt-get install motion
-3. sudo nano /etc/motion/motion.conf; follow instructables info
-4. sudo nano /etc/default/motion; follow instructables info
-5. sudo service motion start; starts service
-6. sudo service motion stop; stops service
-7. firefox 192.168.1.6:8081; launch browser
-	
-Note - I could only get the remote viewing working on my linux laptop.
+For gstreamer generally I used:
+https://sparkyflight.wordpress.com/2014/02/22/raspberry-pi-camera-latency-testing-part-2/
+http://pi.gbaman.info/?p=150
+as a reference.
+
+For the picamera:
+https://www.youtube.com/watch?v=T8T6S5eFpqE
+
+install gstreamer
+1. Fit pi camera
+2. I tend to use DHCP, to find out where everything is pull up your router on a browser
+3. (e.g.) http://192.168.1.1
+4. Navigate to the list of connected clients, you will see your laptop and the pi.
+5. If you are using a VM set networking to bridged in your VM to ensure you are ont the same IP range.
+6. If you have issues with the above check your firewall, add exceptions as required
+7. (ssh to pi e.g. IP addr) sudo pi@192.168.1.6 
+8. (Enable picam in bios) sudo raspi-config
+9. run some basic jpg tests
+10. (on pi & laptop run) sudo apt-get update
+11. (on pi & laptop run) sudo apt-get install gstreamer1.0
+
+![](https://github.com/lawsonkeith/Teleop2/raw/master/images/router.png)
+
+Once you are happy you can test the Teleop2 script
+
+1. cd ~/Teleop2
+2. ./runclient.sh 192.168.1.6
 	
 ##Git/misc cmds
 Usefull cmds:
 
-1. git clone https://github.com/lawsonkeith/Teleop.git
+1. git clone https://github.com/lawsonkeith/Teleop2.git
 2. git push origin master
 3. git commit -am "comment"
-4. git pull origin master
+4. git pull 
 5. scp teleop_server.c pi@192.168.1.8:/home/pi/Teleop/server (copy to pi)
 6. make | head
 7. git reset --hard origin/master (force local to repo ver)
@@ -159,4 +184,4 @@ Follow adafruits guide to seting up the wifi using the terminal on the Pi.
 http://beej.us/guide/bgipc/output/html/singlepage/bgipc.html#fork
 http://gnosis.cx/publish/programming/sockets2.html
 http://www.2net.co.uk/tutorial/periodic_threads
-https://altax.net/blog/low-latency-raspberry-pi-video-transmission/
+
