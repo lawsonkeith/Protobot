@@ -22,6 +22,8 @@ There are 9 hardware modules:
 8. Pi servo interface harness	- Pi
 9. Arduino Nano IO module	- Pi (future)
 
+![](https://github.com/lawsonkeith/Teleop/raw/master/images/Schematic.png)
+
 Functionally there is a remote RC car and a laptop operator control unit (Laptop).
 
 NOTE - all IP addressese are for ref only.
@@ -30,7 +32,7 @@ NOTE - all IP addressese are for ref only.
 * 192.168.1.4 - my laptop - win 7
 * 192.168.1.6 - my PI
 
-##usage
+##Usage
 Acquire the windows XBOX wireless driver and install the drivers.  There's a tutorial here http://www.s-config.com/archived-xbox-360-receiver-install-for-win-xp-and-win-7/ if you buy a cheap Chinese copy and can't get it working.
 The LED on the controller will indicate when it's paired.
 
@@ -39,6 +41,20 @@ Run the program inside a linux VM, get the controller running in windows then ca
 Install the client code on the laptop then the server code on the raspberry pi.  The Pi needs the Monitor code installing on it too.
 
 Setup the Pi to boot it's server on startup as with the Monitor webcam device.  Wire up the Pi as per the attached schematic, power up.  Then boot the client code, you should be able to control the car and receive haptic feedback off the controller.
+
+##General installation and usage
+
+1. Setup the PI wifi
+2. Get XBOX xontroller working in windows
+3. Run linux in a VM, get the controller running in windows then capture it in VMWAREs device capture menu
+4. The LED on the controller should stay the same indicating it's working.  Check with jstest
+5. Install the client code on the laptop then the server code on the raspberry pi. 
+6. Recompile both using make; resolve and dependencies
+7. Get the picamera working over gstreamer  
+8. Wire up the Pi as per the attached schematic, power up
+9. Check the IMU works
+10. Set pi to boot automatically
+11. Then run the server then client code, you should be able to control the car and receive haptic feedback off the XBOX controller when the car crashes into walls etc
 
 
 ##Limitations
@@ -49,17 +65,22 @@ Setup the Pi to boot it's server on startup as with the Monitor webcam device.  
 
 
 ##XBOX 360 controller testing
-This has been tested on Xubuntu 15.  Use the following commands to look for or test the XBOX controller.
+Acquire the windows XBOX wireless driver and install the drivers.  There's a tutorial here http://www.s-config.com/archived-xbox-360-receiver-install-for-win-xp-and-win-7/ if you buy a cheap Chinese copy and can't get it working.
+The LED on the controller will indicate when it's paired.  The drivers should already be on linux if it's a recent release, I used Xubuntu 15.  Use the following commands to look for or test the XBOX controller.
 
 1. use cat /proc/bus/input/devices, look at 'Handlers' if unsure!
-2. fftest /dev/input/event3
-3. jstest /dev/input/js0
-4. ls /dev/input
+2. fftest /dev/input/event3, this tests force feedback.
+3. jstest /dev/input/js0, this test analogs.
+4. ls /dev/input, you should see the joystick FIFOs here.
+5. I didn't have to install anything in linux (apart from maybe jstest), all the pain was in windows.
+ 
+![](https://github.com/lawsonkeith/Teleop2/raw/master/images/Capture2.JPG)
+
+Test it in windows first, in 'devices and printers' you can check all the controls work on the gamepad.  Then test in linux with jstest and fftest.  
+
  
 
-##Installing Gstreamer on the Pi
-Install motion on the pi as follows:
-
+##Installing Gstreamer & picamera on the Pi
 For gstreamer generally I used:
 https://sparkyflight.wordpress.com/2014/02/22/raspberry-pi-camera-latency-testing-part-2/
 http://pi.gbaman.info/?p=150
@@ -67,8 +88,6 @@ as a reference.
 
 For the picamera:
 https://www.youtube.com/watch?v=T8T6S5eFpqE
-
-install gstreamer:
 
 1. Fit pi camera
 2. I tend to use DHCP, to find out where everything is pull up your router on a browser
@@ -88,6 +107,17 @@ Once you are happy you can test the Teleop2 script
 
 1. cd ~/Teleop2
 2. ./runclient.sh 192.168.1.6
+
+
+##Configure PI to run node app by default
+
+We now need to configure the app to run as default when we power up the Pi.
+
+1. sudo cp teleopserver.sh /etc/init.d/
+2. sudo update-rc.d teleopserver.sh defaults
+
+Reboot your Pi and check you can log onto the web page. You should now be ready to go.
+	
 	
 ##Git/misc cmds
 Usefull cmds:
@@ -101,6 +131,7 @@ Usefull cmds:
 7. git reset --hard origin/master (force local to repo ver)
 8. git mv old new
 
+
 ##UDP tests
 send data to a client (Pi) interactively:
 
@@ -111,6 +142,7 @@ look for open port on:
 1. netstat -u -a
 2. netstat -lnpu
 
+
 ##nano
 Some usefull nano cmds...
 
@@ -120,10 +152,12 @@ Some usefull nano cmds...
 4. CTRL+U uncut
 5. F4 		SEL DN
 
+
 ##references
 Usfull notes etc.
 Linux timers - 2net.co.uk: periodic tasks in linux
 IMU pulled from PiBits repo.
+
 
 ##Pi Cmds
 General housekeeping..
@@ -132,7 +166,11 @@ sudo apt-get update
 sudo apt-get dist-upgrade
 sudo apt-get instal raspberrypi-ui-mods
 
+
+
 ##MPU6050
+The PI uses a MPU6050 IMU.  First off you have to enable I2C on the pi, wire it up then test it using the commands in 'scripts'. Again there may be some dependencies.  The server transmits impacts back to the client to transmit to the operator as haptic feedback using the XBOX force feedback.
+
 http://www.instructables.com/id/Reading-I2C-Inputs-in-Raspberry-Pi-using-C/?ALLSTEPS
 
 1. Install i2c tools...
@@ -146,7 +184,7 @@ http://www.instructables.com/id/Reading-I2C-Inputs-in-Raspberry-Pi-using-C/?ALLS
 
 
 ##Pi Blaster
-The PWM on the Pi is done with the Pi blaster Daemon.  In this the Pi receives commands over the FIFO.
+The PWM on the Pi is done with the Pi blaster Daemon.  The server sends data to the servos direct from the Pi and in software to the PI-BLASTER FIFO.
 
 1. sudo apt-get install autoconf
 2. git clone https://github.com/sarfata/pi-blaster.git
@@ -169,6 +207,8 @@ GPIO number| Pin in P1 header
 23   |    P1-16
 24   |    P1-18
 25   |    P1-22
+     
+![](https://github.com/lawsonkeith/Teleop/raw/master/images/Capture.JPG)
       
 To completely turn on GPIO pin 17:
 
@@ -178,10 +218,17 @@ To set GPIO pin 17 to a PWM of 20%
 
 * echo "17=0.2" > /dev/pi-blaster
 
-##wifi
-Follow adafruits guide to seting up the wifi using the terminal on the Pi.
+To test just use a multimeter and some echo commands, write down on paper what you need to send to your servos to get them to do what you want.  Check my server code for my values, yours will be close luckily you can control them with the 0-3.3V offered by the PI as the control signal is unipolar.
 
-1. sudo apt-get install avahi-daemon
+For the wiring loom I used an IDC connector and some 2.54mm header.
+
+**NOTE** - I've had issues with this interfering with the PIs windows environment in the past with lockups so I don't tend to boot into the PI X windows interface.  
+
+##Wifi
+Follow adafruits guide to seting up the wifi using the terminal on the Pi.  I found it easier to do it via the
+command line and had issues with the GUI in x windows. 
+
+1. sudo cp interfaces /etc/network/
 
 
 ##Refs
