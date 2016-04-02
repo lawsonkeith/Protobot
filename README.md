@@ -1,6 +1,7 @@
 ## Teleop2
 Improved RC car teleop system with haptic feedback using C on a raspberry Pi.  The main improvement is the use of an HD camera rather than the XBOX USB camera which couldn't go past really low res.
-This now uses gstreamer rather than mjpeg-streamer to achieve this.
+This now uses gstreamer rather than mjpeg-streamer to achieve this.  The old teleop used a chep wifi dongle, this uses
+a 100mW unit with an antennae for better range.
 
 There are 4 software modules:
 
@@ -9,24 +10,25 @@ There are 4 software modules:
 3. **teleop_server**		- Pi
 4. gstreamer video server	- Pi
  
-There are 8 hardware modules:
+There are 9 hardware modules:
 
 1. XBOX 360 gamepad		- Laptop	
 2. Wireless xbox receiver	- Laptop
-
 3. MPU6050 IMU			- Pi
 4. Wifi dongle 1000mw		- Pi	
 5. DCDC Converter		- Pi
 6. Pi Camera			- Pi
 7. Pi V1 Model B		- Pi
 8. Pi servo interface harness	- Pi
+9. Arduino Nano IO module	- Pi (future)
 
 Functionally there is a remote RC car and a laptop operator control unit (Laptop).
 
 NOTE - all IP addressese are for ref only.
-192.168.1.1 - my router
-192.168.1.2 - my laptop linux VM
-192.168.1.6 - my PI
+* 192.168.1.1 - my router
+* 192.168.1.2 - my laptop - linux VM
+* 192.168.1.4 - my laptop - win 7
+* 192.168.1.6 - my PI
 
 ##usage
 Acquire the windows XBOX wireless driver and install the drivers.  There's a tutorial here http://www.s-config.com/archived-xbox-360-receiver-install-for-win-xp-and-win-7/ if you buy a cheap Chinese copy and can't get it working.
@@ -66,7 +68,8 @@ as a reference.
 For the picamera:
 https://www.youtube.com/watch?v=T8T6S5eFpqE
 
-install gstreamer
+install gstreamer:
+
 1. Fit pi camera
 2. I tend to use DHCP, to find out where everything is pull up your router on a browser
 3. (e.g.) http://192.168.1.1
@@ -96,6 +99,7 @@ Usefull cmds:
 5. scp teleop_server.c pi@192.168.1.8:/home/pi/Teleop/server (copy to pi)
 6. make | head
 7. git reset --hard origin/master (force local to repo ver)
+8. git mv old new
 
 ##UDP tests
 send data to a client (Pi) interactively:
@@ -183,5 +187,4 @@ Follow adafruits guide to seting up the wifi using the terminal on the Pi.
 ##Refs
 http://beej.us/guide/bgipc/output/html/singlepage/bgipc.html#fork
 http://gnosis.cx/publish/programming/sockets2.html
-http://www.2net.co.uk/tutorial/periodic_threads
-
+http://wwhttps://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-occidentalis
