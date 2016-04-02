@@ -1,7 +1,7 @@
-## Teleop2
+## Protobot
 Improved RC car teleop system with haptic feedback using C on a raspberry Pi.  The main improvement is the use of an HD camera rather than the XBOX USB camera which couldn't go past really low res.
 This now uses gstreamer rather than mjpeg-streamer to achieve this.  The old teleop used a chep wifi dongle, this uses
-a 100mW unit with an antennae for better range.
+a 1000mW unit with an antennae for better range.
 
 There are 4 software modules:
 
@@ -74,7 +74,7 @@ The LED on the controller will indicate when it's paired.  The drivers should al
 4. ls /dev/input, you should see the joystick FIFOs here.
 5. I didn't have to install anything in linux (apart from maybe jstest), all the pain was in windows.
  
-![](https://github.com/lawsonkeith/Teleop2/raw/master/images/Capture2.JPG)
+![](https://github.com/lawsonkeith/Protobot/raw/master/images/Capture2.JPG)
 
 Test it in windows first, in 'devices and printers' you can check all the controls work on the gamepad.  Then test in linux with jstest and fftest.  
 
@@ -100,11 +100,11 @@ https://www.youtube.com/watch?v=T8T6S5eFpqE
 10. (on pi & laptop run) sudo apt-get update
 11. (on pi & laptop run) sudo apt-get install gstreamer1.0
 
-![](https://github.com/lawsonkeith/Teleop2/raw/master/images/router.png)
+![](https://github.com/lawsonkeith/Protobot/raw/master/images/router.png)
 
-Once you are happy you can test the Teleop2 script
+Once you are happy you can test the Protobot script
 
-1. cd ~/Teleop2
+1. cd ~/Protobot
 2. ./runclient.sh 192.168.1.6
 
 
@@ -121,11 +121,11 @@ Reboot your Pi and check you can log onto the web page. You should now be ready 
 ##Git/misc cmds
 Usefull cmds:
 
-1. git clone https://github.com/lawsonkeith/Teleop2.git
+1. git clone https://github.com/lawsonkeith/Protobot.git
 2. git push origin master
 3. git commit -am "comment"
 4. git pull 
-5. scp teleop_server.c pi@192.168.1.8:/home/pi/Teleop/server (copy to pi)
+5. scp teleop_server.c pi@192.168.1.8:/home/pi/Protobot/server (copy to pi)
 6. make | head
 7. git reset --hard origin/master (force local to repo ver)
 8. git mv old new
@@ -207,7 +207,7 @@ GPIO number| Pin in P1 header
 24   |    P1-18
 25   |    P1-22
      
-![](https://github.com/lawsonkeith/Teleop/raw/master/images/Capture.JPG)
+![](https://github.com/lawsonkeith/Protobot/raw/master/images/Capture.JPG)
       
 To completely turn on GPIO pin 17:
 
