@@ -37,23 +37,21 @@ NOTE - all IP addressese are for ref only.
 2. Start linux VM, capture Xbox controller
 3. Check your linux IP address via router & ifconfig
 4. Turn on car, locate it's IP address on router
-5. Run client script specifying PI's IP address
+5. Run client script (./runclient.sh PI_IPADDR) specifying PI's IP address
 6. Drive around...
 
-Install the client code on the laptop then the server code on the raspberry pi.  The Pi needs the Monitor code installing on it too.
 
-Setup the Pi to boot it's server on startup as with the Monitor webcam device.  Wire up the Pi as per the attached schematic, power up.  Then boot the client code, you should be able to control the car and receive haptic feedback off the controller.
-
-##General installation and usage
+##General installation 
 
 1. Setup the PI wifi
 2. Get XBOX xontroller working in windows
 3. Run linux in a VM, get the controller running in windows then capture it in VMWAREs device capture menu
 4. The LED on the controller should stay the same indicating it's working.  Check with jstest
-5. Install the client code on the laptop then the server code on the raspberry pi. 
+5. Install the client code on the laptop then the server code on the raspberry pi via github
 6. Recompile both using make; resolve and dependencies
-7. Get the picamera working over gstreamer  
+7. Get the picamera working over gstreamer and shell commands  
 8. Wire up the Pi as per the attached schematic, power up
+9. Check servos work
 9. Check the IMU works
 10. Set pi to boot automatically
 11. Then run the server then client code, you should be able to control the car and receive haptic feedback off the XBOX controller when the car crashes into walls etc
@@ -81,7 +79,6 @@ The LED on the controller will indicate when it's paired.  The drivers should al
 Test it in windows first, in 'devices and printers' you can check all the controls work on the gamepad.  Then test in linux with jstest and fftest.  
 
  
-
 ##Installing Gstreamer & picamera on the Pi
 For gstreamer generally I used:
 https://sparkyflight.wordpress.com/2014/02/22/raspberry-pi-camera-latency-testing-part-2/
