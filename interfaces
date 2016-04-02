@@ -1,0 +1,21 @@
+# /etc/networks/interfaces
+#
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp 
+#static
+#address 192.168.1.42
+#netmask 255.255.255.0
+#gateway 192.168.1.254
+
+auto wlan0
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+#-- office network
+#	wpa-ssid "s3ns0rb0t"
+#	wpa-psk "outpost142"
+#-- home network
+	wpa-ssid "TALKTALK-04119E"
+	wpa-psk "EU6DCHEV"
+

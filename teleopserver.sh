@@ -13,7 +13,7 @@ case "$1" in
 		echo "starting teleopserver"
 		echo "[$date]" >> /var/log/teleopserver.log		
 		#node $path_node >> /var/log/teleopserver.log & 
-		./rungstream.sh &
+		./rungserver.sh &
 		;;
 	stop)
 		echo "stop teleopserver"
