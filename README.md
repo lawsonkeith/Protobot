@@ -1,5 +1,7 @@
 ## Teleop2
-RC car teleop system with haptic feedback using C on a raspberry Pi.
+Improved RC car teleop system with haptic feedback using C on a raspberry Pi.
+
+http://zacharybears.com/low-latency-raspberry-pi-video-streaming/
 
 There are 4 software modules:
 
@@ -157,3 +159,4 @@ Follow adafruits guide to seting up the wifi using the terminal on the Pi.
 http://beej.us/guide/bgipc/output/html/singlepage/bgipc.html#fork
 http://gnosis.cx/publish/programming/sockets2.html
 http://www.2net.co.uk/tutorial/periodic_threads
+https://altax.net/blog/low-latency-raspberry-pi-video-transmission/
