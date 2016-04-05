@@ -52,8 +52,7 @@
 
 #define GPIO_PORT 18
 #define GPIO_FORE 17
-#define GPIO_RED_LED 24
-#define GPIO_GN_LED 25
+#define GPIO_STATUS_LED 24
 //default  high GPIO >> GPIO0/2, GPIO1/3, GPIO4, GPIO7 and GPIO8.
 
 // Define UDP msg type
@@ -292,13 +291,16 @@ void GPIO_drive(int Fore,int Port,int Wdog)
 	}
 	
 	//flash
-	/*count++;
-	if(count >= 10) {
-		PiBlast(GPIO_RED_LED,1);
-	} else if (count > 20) {
-		PiBlast(GPIO_RED_LED,0);
-		count = 0;
-	}*/
+	if(count ==0) {
+		PiBlast(GPIO_STATUS_LED,0);
+	} else  {
+		PiBlast(GPIO_STATUS_LED,1);
+	}
+
+	if(count > 5)
+		count=0;
+	else
+		count++;
 	
 	//printf("\n%f, %f",fport, ffore);
 	PiBlast(GPIO_PORT,fport);
@@ -321,8 +323,8 @@ void GPIO_disable(void)
 	AlarmMsgEn = 0;
 	PiBlast(GPIO_PORT,0.14);
 	PiBlast(GPIO_FORE,0.14);
-	PiBlast(GPIO_RED_LED,0);
-	PiBlast(GPIO_GN_LED,1);
+	PiBlast(GPIO_STATUS_LED,1);
+	//PiBlast(GPIO_GN_LED,1);
 
 }//END sigalrm_handler
 
