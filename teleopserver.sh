@@ -2,10 +2,10 @@
 # /etc/init.d/teleopserver
 
 
-export PATH=$PATH:/home/pi/Teleop2
+export PATH=$PATH:/home/pi/Protobot
 #path_node=/home/pi/picar/app.js
 # required since all files are here
-cd /home/pi/Teleop2
+cd /home/pi/Protobot
 
 case "$1" in
 	start)
