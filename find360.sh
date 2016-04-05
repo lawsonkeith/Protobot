@@ -1,7 +1,7 @@
 #!/bin/sh
 # Gstreamer shell script, stream video to a linux laptop.  Since we're using
 # DHCP this shell needs to wait for wlan0 and work out it's host address.
-# 
+#  
 reset
 echo
 tput setaf 4
