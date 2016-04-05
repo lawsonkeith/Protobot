@@ -221,7 +221,10 @@ To test just use a multimeter and some echo commands, write down on paper what y
 
 For the wiring loom I used an IDC connector and some 2.54mm header.
 
-**NOTE** - I've had issues with this interfering with the PIs windows environment in the past with lockups so I don't tend to boot into the PI X windows interface.  
+**NOTE** -
+(1) I've had issues with this interfering with the PIs windows environment in the past with lockups so I don't tend to boot into the PI X windows interface.  
+(2) sudo chown root test.sh, then sudo chmod +s test.sh to allow scripts to acces GPIO as non root
+
 
 ##Wifi
 Follow adafruits guide to seting up the wifi using the terminal on the Pi.  I found it easier to do it via the

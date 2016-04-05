@@ -9,7 +9,7 @@ fi
 #
 # 2.launch gstreamer client
 #
-gst-launch-1.0 -v tcpclientsrc host=$1 port=5000 ! gdpdepay ! rtph264depay ! avdec_h264 ! videoconvert ! autovideosink sync=false
+gst-launch-1.0 -v tcpclientsrc host=$1 port=5000 ! gdpdepay ! rtph264depay ! avdec_h264 ! videoconvert ! videoflip method=horizontal-flip ! autovideosink sync=false
 #
 # 3.launch teleop client
 #

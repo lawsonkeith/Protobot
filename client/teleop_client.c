@@ -130,14 +130,14 @@ int main(int argc, char** argv)
 		JS_Read(&Fore,&Port);
 		UDP_Send(Fore, Port, Wdog++, &Accel);
 		
-		printf("\n%d,%d,%X,%X",Fore,Port,Accel,Wdog);
+		printf("\nF:%d,P:%d,A:%X,W:%X",Fore,Port,Accel,Wdog);
 		if(Count>0)
 			Count--;
 		
 		// Haptic feedback
 		if(Accel > 280) {
 			if(Count ==0) {
-				Count = 3;
+				Count = 2;
 				FF_Rumble(Accel);
 			}
 		}
@@ -203,29 +203,6 @@ void UDP_Init(char *ip_address)
 
 
 
-// Setup a 20 Hz Timer to poll the server on
-// use POSIX timers
-//
-void Task_Init(void)
-{
-	signal (SIGALRM, TimedTask);
-	new.it_interval.tv_sec = 0; 
-	new.it_interval.tv_usec = 50000; //50ms = 20Hz = 50000us
-	new.it_value.tv_sec = 0;
-	new.it_value.tv_usec = 50000;
-   
-	old.it_interval.tv_sec = 0;
-	old.it_interval.tv_usec = 0;
-	old.it_value.tv_sec = 0;
-	old.it_value.tv_usec = 0;
-   
-	if (setitimer (ITIMER_REAL, &new, &old) < 0) {
-      die("Task_Init: timer init failed\n");
-	}
-	
-	strcpy(Msg.endmsg,"EndMsg!");
-}//END Task_Init
-
 
 // JS_Read  Left axis is throttle, right axis is steering
 // [1] -1K  = max fore 	[3] -1K = max port
@@ -259,8 +236,12 @@ void JS_Read(int *Fore, int *Port)
 		if (axes) {
 			*Fore = axis[1] / 32.768;
 			*Port = axis[3] / 32.768;
-			
+
 			LimitIntMag(Fore,1000);
+			if(*Fore > 0)
+				*Fore *= 0.2;			//slow teleop down!!
+			else
+				*Fore *= 0.5;
 			LimitIntMag(Port,1000);
 		}
 
@@ -337,7 +318,7 @@ void FF_Rumble(unsigned int magnitude)
 {
 	static int init = 1;
 	
-	if(init = 1) {
+	if(init == 1) {
 		init = 0;
 		
 		/* download a periodic sinusoidal effect & store for futuer playback */
@@ -355,7 +336,7 @@ void FF_Rumble(unsigned int magnitude)
 		effects.u.periodic.envelope.fade_level = 0;
 		effects.trigger.button = 0;
 		effects.trigger.interval = 0;
-		effects.replay.length = 500;  /* .5 seconds */
+		effects.replay.length = 700;  /* .5 seconds */
 		effects.replay.delay = 0;
 
 		if (ioctl(fd_e, EVIOCSFF, &effects) < 0) {
