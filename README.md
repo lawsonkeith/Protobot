@@ -107,6 +107,8 @@ Once you are happy you can test the Protobot script
 1. cd ~/Protobot
 2. ./runclient.sh 192.168.1.6
 
+The server (robot) runs automatically once setup.
+
 
 ##Configure PI to run node app by default
 

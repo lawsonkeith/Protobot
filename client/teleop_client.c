@@ -124,13 +124,15 @@ int main(int argc, char** argv)
 
 
 	// hand over to timed task
+	printf("\nStarting client...");
 	while(1) {
-		usleep(10000); //10Hz
+		// Note then next 2 functs block so this is V inaccurate!!
+		usleep(15000); //10Hz
 		
 		JS_Read(&Fore,&Port);
 		UDP_Send(Fore, Port, Wdog++, &Accel);
 		
-		printf("\nF:%d,P:%d,A:%X,W:%X",Fore,Port,Accel,Wdog);
+		//printf("\nF:%d,P:%d,A:%X,W:%X",Fore,Port,Accel,Wdog);
 		if(Count>0)
 			Count--;
 		
