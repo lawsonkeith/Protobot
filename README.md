@@ -1,13 +1,14 @@
 ## Protobot
 Improved RC car teleop system with haptic feedback using C on a raspberry Pi.  The main improvement is the use of an HD camera rather than the XBOX USB camera which couldn't go past really low res.
 
-![](https://github.com/lawsonkeith/Protobot/raw/master/images/Screenshot.png)
+<img src="https://github.com/lawsonkeith/Protobot/raw/master/images/Screenshot.png" width="700">
+
 (HD pic missing off snapshot?)
 
 This now uses gstreamer rather than mjpeg-streamer to achieve this.  The old teleop used a chep wifi dongle, this can use either 
 a 1000mW unit with an antennae for better range or a dongle for internal use.
 
-![](https://github.com/lawsonkeith/Protobot/raw/master/images/DSC_0422.JPG)
+<img src="https://github.com/lawsonkeith/Protobot/raw/master/images/DSC_0422.JPG" width="700">
 
 There are 4 software modules:
 
