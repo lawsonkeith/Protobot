@@ -251,6 +251,9 @@ void JS_Read(int *Fore, int *Port)
 			x = button[0];
 		}
 	}//END IF DATA
+	
+	// Flush buffer
+	while (read(fd_j, &x, sizeof(x)) > 0) ;
 }//END JS_Read
 
 
