@@ -1,7 +1,13 @@
 ## Protobot
 Improved RC car teleop system with haptic feedback using C on a raspberry Pi.  The main improvement is the use of an HD camera rather than the XBOX USB camera which couldn't go past really low res.
-This now uses gstreamer rather than mjpeg-streamer to achieve this.  The old teleop used a chep wifi dongle, this uses
-a 1000mW unit with an antennae for better range.
+
+![](https://github.com/lawsonkeith/Protobot/raw/master/images/Screenshot.png)
+(HD pic missing off snapshot?)
+
+This now uses gstreamer rather than mjpeg-streamer to achieve this.  The old teleop used a chep wifi dongle, this can use either 
+a 1000mW unit with an antennae for better range or a dongle for internal use.
+
+![](https://github.com/lawsonkeith/Protobot/raw/master/images/DSC_0422.JPG)
 
 There are 4 software modules:
 
@@ -15,14 +21,14 @@ There are 9 hardware modules:
 1. XBOX 360 gamepad		- Laptop	
 2. Wireless xbox receiver	- Laptop
 3. MPU6050 IMU			- Pi
-4. Wifi dongle 1000mw		- Pi	
+4. Wifi dongle / 1000mw		- Pi	
 5. DCDC Converter		- Pi
 6. Pi Camera			- Pi
 7. Pi V1 Model B		- Pi
 8. Pi servo interface harness	- Pi
 9. Arduino Nano IO module	- Pi (future)
 
-![](https://github.com/lawsonkeith/Teleop/raw/master/images/Schematic.png)
+![](https://github.com/lawsonkeith/Teleop/raw/master/images/Schematic.pdf)
 
 Functionally there is a remote RC car and a laptop operator control unit (Laptop).
 
@@ -209,7 +215,7 @@ GPIO number| Pin in P1 header
 24   |    P1-18
 25   |    P1-22
      
-![](https://github.com/lawsonkeith/Protobot/raw/master/images/Capture.JPG)
+![](https://github.com/lawsonkeith/Protobot/raw/master/images/Raspberry-Pi-GPIO-pinouts.png)
       
 To completely turn on GPIO pin 17:
 
