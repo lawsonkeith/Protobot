@@ -297,7 +297,7 @@ void GPIO_drive(int Fore,int Port,int Wdog)
 		PiBlast(GPIO_STATUS_LED,1);
 	}
 
-	if(count > 5)
+	if(count > 4)
 		count=0;
 	else
 		count++;

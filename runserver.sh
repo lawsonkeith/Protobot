@@ -45,6 +45,7 @@ sleep .1
 echo $LEDOFF > $GPIO
 sleep .5
 raspivid -t 999999 -h 720 -w 1080 -fps 25 -hf -b 2000000 -o - | gst-launch-1.0 -v fdsrc ! h264parse !  rtph264pay config-interval=1 pt=96 ! gdppay ! tcpserversink host=$HOST port=5000 &
+#raspivid -t 999999 -h 600 -w 800 -fps 25 -hf -b 2000000 -o - | gst-launch-1.0 -v fdsrc ! h264parse !  rtph264pay config-interval=1 pt=96 ! gdppay ! tcpserversink host=$HOST port=5000 &
 #
 # 4.run servo ack
 #
@@ -53,7 +54,7 @@ echo $LEDON > $GPIO
 sleep .1
 echo $LEDOFF > $GPIO
 sleep .5
-echo $NULLSTEER > $GPIO
+#echo $NULLSTEER > $GPIO
 #
 # 5. Run Teleop server
 #
