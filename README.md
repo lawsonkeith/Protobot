@@ -1,4 +1,4 @@
-## Protobot
+# Protobot
 Improved RC car teleop system with haptic feedback using C on a raspberry Pi.  The main improvement is the use of an HD camera rather than the XBOX USB camera which couldn't go past really low res.
 
 <img src="https://github.com/lawsonkeith/Protobot/raw/master/images/Screenshot.png" width="700">
@@ -41,7 +41,7 @@ NOTE - all IP addressese are for ref only.
 * 192.168.1.4 - my laptop - win 7
 * 192.168.1.6 - my PI
 
-##Usage
+## Usage
 1. Start Xbox controller, check it works in windows
 2. Start linux VM, capture Xbox controller
 3. Check your linux IP address via router & ifconfig
@@ -50,7 +50,7 @@ NOTE - all IP addressese are for ref only.
 6. Drive around...
 
 
-##General installation 
+## General installation 
 
 1. Setup the PI wifi
 2. Get XBOX xontroller working in windows
@@ -66,14 +66,14 @@ NOTE - all IP addressese are for ref only.
 11. Then run the server then client code, you should be able to control the car and receive haptic feedback off the XBOX controller when the car crashes into walls etc
 
 
-##Limitations
+## Limitations
 1. Currently if the server restarts the client doesn't reconnect.  Since this is just test code I think it's ok to relainch the client
 2. Currently the settings are passed by argument, this is a bit of a mess and should move over to ini files.
 3. Error checking is limited.
 4. Joystick device enumeration is hard coded e.g. js0 event3 etc.
 
 
-##XBOX 360 controller testing
+## XBOX 360 controller testing
 Acquire the windows XBOX wireless driver and install the drivers.  There's a tutorial here http://www.s-config.com/archived-xbox-360-receiver-install-for-win-xp-and-win-7/ if you buy a cheap Chinese copy and can't get it working.
 The LED on the controller will indicate when it's paired.  The drivers should already be on linux if it's a recent release, I used Xubuntu 15.  Use the following commands to look for or test the XBOX controller.
 
@@ -88,7 +88,7 @@ The LED on the controller will indicate when it's paired.  The drivers should al
 Test it in windows first, in 'devices and printers' you can check all the controls work on the gamepad.  Then test in linux with jstest and fftest.  
 
  
-##Installing Gstreamer & picamera on the Pi
+## Installing Gstreamer & picamera on the Pi
 For gstreamer generally I used:
 https://sparkyflight.wordpress.com/2014/02/22/raspberry-pi-camera-latency-testing-part-2/
 http://pi.gbaman.info/?p=150
@@ -119,7 +119,7 @@ Once you are happy you can test the Protobot script
 The server (robot) runs automatically once setup.
 
 
-##Configure PI to run node app by default
+## Configure PI to run node app by default
 
 We now need to configure the app to run as default when we power up the Pi.
 
@@ -129,7 +129,7 @@ We now need to configure the app to run as default when we power up the Pi.
 Reboot your Pi and check you can log onto the web page. You should now be ready to go.
 	
 	
-##Git/misc cmds
+## Git/misc cmds
 Usefull cmds:
 
 1. git clone https://github.com/lawsonkeith/Protobot.git
@@ -142,7 +142,7 @@ Usefull cmds:
 8. git mv old new
 
 
-##UDP tests
+## UDP tests
 send data to a client (Pi) interactively:
 
 1. ncat -vv 192.168.1.6 8888 -u
@@ -153,7 +153,7 @@ look for open port on:
 2. netstat -lnpu
 
 
-##nano
+## nano
 Some usefull nano cmds...
 
 1. CTRL+6 block sel
@@ -163,13 +163,13 @@ Some usefull nano cmds...
 5. F4 		SEL DN
 
 
-##references
+## references
 Usfull notes etc.
 Linux timers - 2net.co.uk: periodic tasks in linux
 IMU pulled from PiBits repo.
 
 
-##Pi Cmds
+## Pi Cmds
 General housekeeping..
 
 sudo apt-get update
@@ -178,7 +178,7 @@ sudo apt-get instal raspberrypi-ui-mods
 
 
 
-##MPU6050
+## MPU6050
 The PI uses a MPU6050 IMU.  First off you have to enable I2C on the pi, wire it up then test it using the commands in 'scripts'. Again there may be some dependencies.  The server transmits impacts back to the client to transmit to the operator as haptic feedback using the XBOX force feedback.
 
 http://www.instructables.com/id/Reading-I2C-Inputs-in-Raspberry-Pi-using-C/?ALLSTEPS
@@ -193,7 +193,7 @@ http://www.instructables.com/id/Reading-I2C-Inputs-in-Raspberry-Pi-using-C/?ALLS
 8. The MPU605 should appear as 68
 
 
-##Pi Blaster
+## Pi Blaster
 The PWM on the Pi is done with the Pi blaster Daemon.  The server sends data to the servos direct from the Pi and in software to the PI-BLASTER FIFO.
 
 1. sudo apt-get install autoconf
@@ -237,14 +237,14 @@ For the wiring loom I used an IDC connector and some 2.54mm header.
 (2) sudo chown root test.sh, then sudo chmod +s test.sh to allow scripts to acces GPIO as non root
 
 
-##Wifi
+## Wifi
 Follow adafruits guide to seting up the wifi using the terminal on the Pi.  I found it easier to do it via the
 command line and had issues with the GUI in x windows. 
 
 1. sudo cp interfaces /etc/network/
 
 
-##Refs
+## Refs
 http://beej.us/guide/bgipc/output/html/singlepage/bgipc.html#fork
 http://gnosis.cx/publish/programming/sockets2.html
 http://wwhttps://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-occidentalis
